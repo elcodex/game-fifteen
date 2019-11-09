@@ -2,10 +2,10 @@ nav {
   text-align: center;
 }
 #btn-newgame {
-  margin: 2rem auto;
+  margin: auto;
   background: var(--background-color);
-  width: 100px;
-  height: 100px;
+  width: 1.3rem;
+  height: 1.3rem;
   border-radius: 50%;
   border: 5px solid var(--background-color);
   background-image: url("shuffle_button.svg");
