@@ -38,6 +38,7 @@ nav {
   border-radius: 50%;
   border: 5px solid var(--background-color);
   background-image: url("shuffle_button.svg");
+  cursor: pointer;
 }
 #btn-newgame:hover, #btn-newgame:focus {
   border: 5px solid white;
@@ -46,6 +47,7 @@ nav {
   transform: scale(0.9);
 }
 main {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,28 +83,26 @@ main {
   -ms-user-select: none;
   user-select: none;
 }
+
 #congrats {
   display: none;
 } 
-/*
+
 #congrats {
   font-size: 55px;
-  color: hsl(0, 100%, 100%);
-  text-shadow: 0px 0px 3px hsl(0, 100%, 30%); 
+  background-color: white;
+  opacity: 0.7;
+  color: var(--background-color);
+  border: 5px dashed var(--background-color);
+  position: absolute;
+
+  animation: 0.5s linear 1s forwards stamp;
 }
-#congrats > p {
-  visibility: hidden;
+@keyframes stamp {
+  from {
+    transform: perspective(500px) translate3D(50%, 50%, 400px) translate(-50%, -50%) rotate(-20deg);
+  }
+  to {
+    transform:perspective(500px) translate3D(50%, 50%, 0px) translate(-50%, -50%) rotate(-20deg);
+  }
 }
-#new-game {
-  margin: 50px;
-}
-#new-game > button {
-  background-color: hsl(0, 100%, 100%);
-  border: 3px solid hsl(0, 100%, 70%);
-  font-size: 55px;
-  color: hsl(0, 100%, 70%);  
-}
-#new-game > button:active {
-  transform: scale(0.9);
-}
-*/
