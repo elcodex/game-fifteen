@@ -7,9 +7,7 @@ html, body {
   padding:0; 
 }
 :root {
-  --tile-color: hsl(0, 100%, 70%);
   --background-color: hsl(0, 100%, 30%);
-  --number-color: white; 
 }
 body {
   background: #ffcacf;
@@ -24,28 +22,7 @@ body {
 	  
   background-size: 41px 100%, 67px 100%, 97px 100%, 103px 100%, 127px 100%, 151px 100%;
 }
-nav {
-  text-align: center;
-  /*
-  background: linear-gradient();
-  */ 
-}
-#btn-newgame {
-  margin: 2rem auto;
-  background: var(--background-color);
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 5px solid var(--background-color);
-  background-image: url("shuffle_button.svg");
-  cursor: pointer;
-}
-#btn-newgame:hover, #btn-newgame:focus {
-  border: 5px solid white;
-}
-#btn-newgame:active {
-  transform: scale(0.9);
-}
+
 main {
   position: relative;
   display: flex;
@@ -55,33 +32,6 @@ main {
   font-family: "Lucida Console", Monaco, monospace;
   font-weight: bold;
   height: calc(100% - 120px - 2rem * 2);
-}
-#board {
-  display: grid;
-  grid-template-rows: repeat(4, 100px);
-  grid-template-columns: repeat(4, 100px);
-  grid-gap: 4px;
-  border: 3px solid var(--background-color);
-  background-color: var(--background-color);
-  padding: 4px;
-}
-.tile {
-  font-size: 70px;
-  color: var(--number-color);
-  background-color: var(--tile-color);
-  border-radius: 15%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 0px;
-}
-.tile, .missing-tile {  
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 #congrats {
@@ -95,8 +45,8 @@ main {
   color: var(--background-color);
   border: 5px dashed var(--background-color);
   position: absolute;
-
-  animation: 0.5s linear 1s forwards stamp;
+  transform: perspective(500px) translate3D(50%, 50%, 400px) translate(-50%, -50%) rotate(-20deg);
+  animation: 0.5s linear forwards stamp;
 }
 @keyframes stamp {
   from {
