@@ -1,0 +1,10 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="white"
+     stroke-width="18"
+     fill="none"
+     transform="rotate(20, 100, 100)">
+    <circle cx="100" cy="100" r="60" stroke-dasharray="149 39" />
+    <polyline points="125,120 160,100 180,135" />
+    <polyline points="15,80 40,103 75,80" />
+  </g>
+</svg>
