@@ -49,14 +49,14 @@ main {
 } 
 
 #congrats {
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   background-color: white;
   color: var(--background-color);
   border: 5px dashed var(--background-color);
   position: absolute; 
   top: 50%; left: 50%;
   animation: 0.5s cubic-bezier(.25,.1,.43,1.49) forwards stamp;
-
+  padding: 0.4rem;
 }
 @keyframes stamp {
   from {
