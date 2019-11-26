@@ -10,7 +10,7 @@ const inversionsCount = numbers => {
     }
     return count;    
 }
-const shuffle = _ => {
+const shuffle = () => {
     let numbers = [...new Array(EMPTY_NUMBER-1)].map((_, i) => i+1);
     for (let i = 0; i < numbers.length; i++) {
         const j = i + Math.floor(Math.random() * (numbers.length - i));
@@ -75,14 +75,14 @@ const moveTile = (game15, emptyId) => {
         }   
     }
 }
-const doNothing = _ => {}
+const doNothing = () => {}
 
 const setClicks = (emptyId, action) => {
     let i = Math.floor(emptyId / BOARD_SIZE);
     let j = emptyId % BOARD_SIZE;
     [{di:-1, dj:0, move: 'bottom'}, {di:0, dj:1, move: 'left'}, 
      {di:1, dj:0, move: 'top'}, {di:0, dj:-1, move: 'right'}]
-        .forEach(({di,dj,move}) => {
+        .forEach(({di, dj}) => {
             if (i+di >= 0 && i+di < BOARD_SIZE && j+dj >= 0 && j+dj < BOARD_SIZE) {
                 const index = (i+di) * BOARD_SIZE + (j+dj);
                 let tile = document.querySelector(`[id="${index}"]`);
@@ -90,7 +90,7 @@ const setClicks = (emptyId, action) => {
             }
     });
 }
-const newGame = _ => {
+const newGame = () => {
     document.getElementById('congrats').style.display = 'none';
     let boardValues = goodShuffle();
     let game15 = game(boardValues);
