@@ -11,11 +11,18 @@ nav {
   border: 5px solid var(--background-color);
   background-image: url("shuffle_button.svg");
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 #btn-newgame:hover, #btn-newgame:focus {
   border: 5px solid white;
 }
+
+#btn-newgame:focus {
+  outline-color: white;
+}
+
 #btn-newgame:active {
   transform: scale(0.9);
 }
