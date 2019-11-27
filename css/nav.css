@@ -1,16 +1,18 @@
 nav {
   text-align: center;
 }
+
 #btn-newgame {
   margin: auto;
   background: var(--background-color);
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: 5px solid var(--background-color);
   background-image: url("shuffle_button.svg");
   cursor: pointer;
 }
+
 #btn-newgame:hover, #btn-newgame:focus {
   border: 5px solid white;
 }
