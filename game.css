@@ -31,11 +31,29 @@ body {
 }
 
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   height: 100%; 
+}
+
+.links {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  margin: 5px;
+  background-color: var(--background-color);
+  opacity: 0.7; 
+  
+  font-size: 0.5rem;
+}
+.links img {
+  width: 0.8rem;
+  height: auto;
+  vertical-align: middle;
 }
 
 main {
