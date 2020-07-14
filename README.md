@@ -6,9 +6,10 @@ Slide the tile to an empty space to make all the numbers sorted in ascending ord
 
 To move a tile that is near the empty space, click or touch it.
 
-[Project page]https://elcodex.github.io/game-fifteen/game-fifteen.html
+[Project page](https://elcodex.github.io/game-fifteen/game-fifteen.html)
 
 ## Features
+
 - new game button,
 - victory animation at the end of the game, 
 - JS,
