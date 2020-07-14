@@ -1,67 +1,21 @@
-const EMPTY_NUMBER = 16;
 const BOARD_SIZE = 4;
+const NUMBER_SEPARATOR = ",";
+const STORAGE_ITEM = "board15";
 
-const inversionsCount = numbers => {
-    let count = 0;
-    for (let i = 0; i < numbers.length; i++) {
-        for (let j = 0; j < numbers.length; j++) {
-            if (numbers[i] !== EMPTY_NUMBER &&
-                numbers[j] !== EMPTY_NUMBER &&
-                numbers[i] > numbers[j] && i < j) count++;
-        }  
-    }
-    return count;    
-}
-const shuffle = () => {
-    let numbers = [...new Array(EMPTY_NUMBER-1)].map((_, i) => i+1);
-    for (let i = 0; i < numbers.length; i++) {
-        const j = i + Math.floor(Math.random() * (numbers.length - i));
-        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-    }
-    numbers.push(EMPTY_NUMBER);
-    return numbers; 
-}
-
-const isGoodShuffle = numbers => {
-    return inversionsCount(numbers) % 2 === 0;
-}
-
-const goodShuffle = _ => {
-    let numbers = shuffle();
-    while (!isGoodShuffle(numbers)) {
-        numbers = shuffle();
-    }
-    return numbers;
-}
-
-const game = values => {
-  let numbers = [...values];
-  return {
-    turn: number => {
-        const i1 = numbers.indexOf(number);
-        const i2 = numbers.indexOf(EMPTY_NUMBER);
-        numbers[i1] = EMPTY_NUMBER;
-        numbers[i2] = number;
-        return numbers; 
-    },
-    isOver: _ => {
-        let done = numbers.every((number, i) => number === i+1)
-        return done; 
-    }
-  }
-}
+const TILE_CLASS = 'tile';
+const MISSING_TILE_CLASS = 'missing-tile';
 
 // interface
 const initializeBoard = values => {
-    let emptyTile = document.querySelector(".missing-tile");
+    let emptyTile = document.querySelector("." + MISSING_TILE_CLASS);
     if (emptyTile) {
-        emptyTile.classList = ['tile'];
+        emptyTile.classList = [TILE_CLASS];
     }
         
-    [...document.getElementsByClassName('tile')]
+    [...document.getElementsByClassName(TILE_CLASS)]
         .forEach((tile, i) => {
             if (values[i] === EMPTY_NUMBER) {
-                tile.classList = ['missing-tile'];
+                tile.classList = [MISSING_TILE_CLASS];
                 tile.innerText = '';
             }
             else {
@@ -70,38 +24,50 @@ const initializeBoard = values => {
             tile.onclick = doNothing;
         });
 }
-const moveTile = (game15, emptyId) => {
+
+const moveTile = (game15) => {
     return e => {
-        let emptyTile = document.querySelector(".missing-tile");
-        let number = e.target.innerHTML;
-        emptyTile.classList = ['tile'];
-        emptyTile.innerText = number;
-        e.target.classList = ['missing-tile'];
-        e.target.innerText = '';
-        setClicks(emptyId, doNothing);
+        let emptyTile = document.querySelector("." + MISSING_TILE_CLASS);
+        const number = e.target.innerHTML;
+        if (emptyTile) emptyTile.classList = [TILE_CLASS];
+        
         const board = game15.turn(number * 1);
+        [...document.getElementsByClassName(TILE_CLASS)].forEach((tile, i) => {
+            if (board[i] === EMPTY_NUMBER) {
+                tile.classList = [MISSING_TILE_CLASS];
+                tile.innerText = '';
+            }
+            else {
+                if (tile.innerText !== board[i].toString()) {
+                    tile.innerText = board[i];
+                }
+            }
+            tile.onclick = doNothing;
+        });
+
         if (!game15.isOver()) {
-            setClicks(e.target.id, moveTile(game15, e.target.id));
+            setClicks(e.target.id, moveTile(game15));
             try {
-                localStorage.setItem("board15", board.join(","));
+                localStorage.setItem(STORAGE_ITEM, board.join(NUMBER_SEPARATOR));
             } catch(e) {}
         }
         else {    //winAction
             document.getElementById('congrats').style.display = 'block';
             try {
-                localStorage.removeItem("board15");
+                localStorage.removeItem(STORAGE_ITEM);
             } catch(e) {}
         }   
     }
 }
+
 const doNothing = () => {}
 
 const setClicks = (emptyId, action) => {
     let i = Math.floor(emptyId / BOARD_SIZE);
     let j = emptyId % BOARD_SIZE;
 
-    [{di:-1, dj:0, move: 'bottom'}, {di:0, dj:1, move: 'left'}, 
-     {di:1, dj:0, move: 'top'}, {di:0, dj:-1, move: 'right'}]
+    [{di: -1, dj: 0, move: 'bottom'}, {di: 0, dj: 1, move: 'left'}, 
+     {di: 1, dj: 0, move: 'top'}, {di: 0, dj: -1, move: 'right'}]
         .forEach(({di, dj}) => {
             if (i+di >= 0 && i+di < BOARD_SIZE && j+dj >= 0 && j+dj < BOARD_SIZE) {
                 const index = (i+di) * BOARD_SIZE + (j+dj);
@@ -123,15 +89,15 @@ const newGame = (storageBoard) => {
     }
     initializeBoard(boardValues);
     const emptyId = boardValues.indexOf(EMPTY_NUMBER);
-    setClicks(emptyId, moveTile(game15, emptyId));
+    setClicks(emptyId, moveTile(game15));
 }
 
 let storageBoard = undefined;
 
 try {
-    const boardString = localStorage.getItem("board15");
+    const boardString = localStorage.getItem(STORAGE_ITEM);
     if (boardString) {
-        const board = boardString.split(",").map(value => parseInt(value));
+        const board = boardString.split(NUMBER_SEPARATOR).map(value => parseInt(value));
         let isValidBoard = 
             board.length === EMPTY_NUMBER &&
             board.every(number => !isNaN(number) && number > 0 && number <= EMPTY_NUMBER) &&
